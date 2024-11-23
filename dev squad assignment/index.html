@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Webinar Dashboard</title>
+    <!-- React & Babel -->
+    <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom CSS for Sidebar */
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            background-color: #f7f7f7;
+        }
+        .btn_one {
+            color: black;
+            font-size: 30px;
+            font-weight: 800;
+            position: absolute;
+            left: 16px;
+            line-height: 60px;
+        }
+        .sidebar_menu {
+            position: fixed;
+            left: -300px;
+            height: 100vh;
+            width: 300px;
+            background-color: rgba(19, 65, 71, 0.308);
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+            transition: all 0.2s linear;
+        }
+        .sidebar_menu .logo {
+            position: absolute;
+            width: 100%;
+            line-height: 60px;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.473);
+        }
+        .sidebar_menu .logo a {
+            position: absolute;
+            left: 50px;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 500;
+        }
+        .sidebar_menu .btn_two {
+            color: gray;
+            font-size: 20px;
+            line-height: 60px;
+            position: absolute;
+            left: 275px;
+            cursor: pointer;
+        }
+        .sidebar_menu .menu {
+            position: absolute;
+            width: 100%;
+            top: 80px;
+        }
+        .sidebar_menu .menu li {
+            margin: 6px;
+            padding: 10px 20px;
+        }
+        .sidebar_menu .menu i,
+        .sidebar_menu .menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+        }
+        .sidebar_menu .menu i {
+            padding: 9px;
+        }
+        .sidebar_menu .social_media {
+            color: white;
+            opacity: 0.5;
+            position: absolute;
+            bottom: 20px;
+            left: 25%;
+        }
+        .sidebar_menu .social_media i {
+            color: white;
+            opacity: 0.5;
+            padding: 0 5px;
+        }
+        #check {
+            display: none;
+        }
+        .sidebar_menu .menu li:hover {
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+        }
+        .btn_one i:hover {
+            font-size: 40px;
+        }
+        .btn_two i:hover {
+            font-size: 30px;
+        }
+        .sidebar_menu .social_media i:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        #check:checked ~ .sidebar_menu {
+            left: 0;
+        }
+
+        /* Tailwind-based adjustments for responsiveness */
+        @media (max-width: 768px) {
+            .main_box {
+                margin-left: 0;
+            }
+            .sidebar_menu {
+                left: -100%;
+            }
+            #check:checked ~ .sidebar_menu {
+                left: 0;
+            }
+        }
+
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="main_box">
+        <!-- Checkbox to toggle Sidebar -->
+        <input type="checkbox" id="check" />
+        <div class="btn_one">
+            <label for="check">
+                <i class="fa-solid fa-bars"></i>
+            </label>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar_menu">
+            <div class="logo">
+                <a href="#">Webinar</a>
+            </div>
+            <div class="btn_two">
+                <label for="check">
+                    <i class="fa-solid fa-xmark"></i>
+                </label>
+            </div>
+            <div class="menu">
+                <ul>  <li><i class="fas fa-home"></i><a href="#">home</a></li>
+                    <li><i class="fa-solid fa-gear"></i><a href="#">setting</a></li>
+                    <li><i class="fa-solid fa-money-bill"></i><a href="#">billing</a></li>
+                    <li><i class="fa-solid fa-photo-film"></i><a href="#">Exhibits</a></li>
+                    
+                    
+                    <li><i class="fa-solid fa-phone"></i><a href="#">Contact</a></li>
+                    <li><i class="fas fa-home"></i><a href="#">home</a></li>
+                    
+                    
+                </ul>
+            </div>
+
+            <!-- Social Media Links -->
+            <div class="social_media">
+                <ul>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile and Dashboard -->
+    <div id="root"></div>
+
+    <!-- React JSX Component -->
+    <script type="text/babel">
+        const App = () => {
+            return (
+                <div className="flex flex-col items-center">
+                    <div className="w-full h-64 bg-cover bg-center" style={{ backgroundImage: "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRV61hPJCEvTMXBAXVazMeetdtWTFhatszhxQ&s')" }}></div>
+                    <div className="relative -mt-16 w-64 bg-white rounded-lg shadow-lg p-4 text-center">
+                        <img className="w-24 h-24 rounded-full mx-auto" src="mee.jpeg" alt="Profile Picture" />
+                        <h2 className="mt-2 text-xl font-semibold">priyanka dhusiya</h2>
+                        <p className="text-gray-600">priyanka dhusiya189@gmail.com</p>
+                        <p className="text-gray-600">730XXXXX</p>
+                        <p className="text-gray-600">pandeypur Varanasi, Uttarpradesh</p>
+                    </div>
+                    <div className="mt-8 w-full max-w-2xl">
+                        <p className="text-gray-600">friday, 22 november</p>
+                        <h1 className="text-2xl font-bold mt-1">Good afternoon guys its me priyanka <span role="img" aria-label="wave"></span></h1>
+                        <div className="mt-4 bg-white rounded-lg shadow-lg p-4">
+                            <div className="flex justify-between items-center border-b pb-2 mb-2">
+                                <p className="text-gray-600"><i className="far fa-calendar-alt"></i> friday  2024</p>
+                                <div>
+                                    <button className="text-gray-600"><i className="fas fa-chevron-left"></i></button>
+                                    <button className="text-gray-600 ml-2"><i className="fas fa-chevron-right"></i></button>
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <div className="flex items-center">
+                                    <p className="w-24 text-gray-600">5555AM</p>
+                                    <p className="flex-1"><span className="text-red-500">Live</span> <i className="fas fa-video text-red-500"></i> UX Webinar</p>
+                                </div>
+                                <div className="flex items-center">
+                                    <p className="w-24 text-gray-600">1122AM</p>
+                                    <p className="flex-1"><span className="text-blue-500">Upcoming</span> <i className="fas fa-video text-blue-500"></i> My first Webinar</p>
+                                </div>
+                                <div className="flex items-center">
+                                    <p className="w-24 text-gray-600">1122 AM</p>
+                                    <p className="flex-1"><span className="text-blue-500">Upcoming</span> <i className="fas fa-video text-blue-500"></i> Important Webinar</p>
+                                </div>
+                                <div className="flex items-center">
+                                    <p className="w-24 text-gray-600">1155 AM</p>
+                                    <p className="flex-1"><span className="text-blue-500">Upcoming</span> <i className="fas fa-video text-blue-500"></i> Webinar 1</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="mt-4 flex justify-around bg-white rounded-lg shadow-lg p-4">
+                            <button className="flex flex-col items-center text-teal-500">
+                                <i className="fas fa-calendar-plus fa-2x"></i>
+                                <span>Schedule</span>
+                            </button>
+                            <button className="flex flex-col items-center text-teal-500">
+                                <i className="fas fa-video fa-2x"></i>
+                                <span>Join </span>
+                            </button>
+                            <button className="flex flex-col items-center text-teal-500">
+                                <i className="fas fa-folder-open fa-2x"></i>
+                                <span>Open</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
+
+ 
